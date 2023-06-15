@@ -12,11 +12,6 @@
 Перед запуском запустить 
 `dotnet restore` в корневом каталоге
 
-## BigBossClient 
-простенький клиент для сервера
-запуск 
-
-`dotnet run --project '.\BigBossClient'`
 
 ## BigBossServerSimple
 Простейшая версия сервера
@@ -27,5 +22,12 @@
 Оверинжинеринговая чудище собранная из кусков моего старенького пет-проекта.
 
 `dotnet run --project '.\BigBossServer'`
+
+
+## BigBossClient 
+простенький клиент для сервера
+запуск 
+
+`dotnet run --project '.\BigBossClient'`
 
 Клиент способен работать с любым из них.
