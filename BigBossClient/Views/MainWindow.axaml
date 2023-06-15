@@ -1,0 +1,43 @@
+<Window xmlns="https://github.com/avaloniaui"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:vm="using:BigBossClient.ViewModels"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        mc:Ignorable="d" d:DesignWidth="800" d:DesignHeight="450"
+        x:Class="BigBossClient.Views.MainWindow"
+        x:DataType="vm:MainWindowViewModel"
+        Icon="/Assets/avalonia-logo.ico"
+        Title="BigBossClient">
+
+    <Design.DataContext>
+        <!-- This only sets the DataContext for the previewer in an IDE,
+             to set the actual DataContext for runtime, set the DataContext property in code (look at App.axaml.cs) -->
+        <vm:MainWindowViewModel/>
+    </Design.DataContext>
+    <Grid Margin="10" ColumnDefinitions="Auto, *">
+        <Grid Margin="10" VerticalAlignment="Center" Grid.Column="0" ColumnDefinitions="Auto, *" RowDefinitions="*,*,*,*">
+            <TextBlock Grid.Row="0" Grid.Column="0" Margin="5" Text="host" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBox Grid.Row="0" Grid.Column="1" Width="200" Text="{Binding Host, Mode=TwoWay}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            
+            <TextBlock Grid.Row="1" Grid.Column="0" Margin="5,10" Text="userId" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            <TextBox Grid.Row="1" Grid.Column="1"  Margin="5,10" Width="200" Text="{Binding UserId}" HorizontalAlignment="Center" VerticalAlignment="Center"/>
+            
+            <Button HorizontalAlignment="Center" Command="{Binding ConnectCommand}" Margin="0,10" Grid.Row="2" Grid.Column="0" Grid.ColumnSpan="2">Подключить</Button>
+            <Button HorizontalAlignment="Center" Command="{Binding RequestNextNumberCommand}" Margin="0,0" Grid.Row="3" Grid.Column="0" Grid.ColumnSpan="2">Получить</Button>
+        </Grid>
+        
+        <ListBox Grid.Column="1" Items="{Binding Messages}">
+            <ListBox.ItemTemplate>
+                <DataTemplate>
+                    <Border Margin="0, -4, 0, -12" Background="ForestGreen" CornerRadius="3" Padding="4">
+                        <TextBlock Text="{Binding}"/>
+                    </Border>
+                </DataTemplate>
+            </ListBox.ItemTemplate>
+        </ListBox>
+    </Grid>
+    
+    
+
+
+</Window>
