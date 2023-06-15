@@ -1,0 +1,34 @@
+<Project Sdk="Microsoft.NET.Sdk.Web">
+
+    <PropertyGroup>
+        <TargetFramework>net7.0</TargetFramework>
+        <Nullable>enable</Nullable>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <DockerDefaultTargetOS>Linux</DockerDefaultTargetOS>
+        <RootNamespace>BigBossServer</RootNamespace>
+        <UserSecretsId>6bf11f13-9e6e-4673-9952-93697fef4229</UserSecretsId>
+    </PropertyGroup>
+
+
+    <ItemGroup>
+      <Content Include="..\.dockerignore">
+        <Link>.dockerignore</Link>
+      </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+      <Protobuf Include="..\protos\Request.proto" Link="Proto\Request.proto" />
+      <Protobuf Include="..\protos\Response.proto" Link="Proto\Response.proto" />
+        
+      <PackageReference Include="Google.Protobuf" Version="3.23.2" />
+      <PackageReference Include="Grpc.Tools" Version="2.54.0">
+        <PrivateAssets>all</PrivateAssets>
+        <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+      </PackageReference>
+    </ItemGroup>
+
+    <ItemGroup>
+      <ProjectReference Include="..\BigBossApp\BigBossApp.csproj" />
+    </ItemGroup>
+
+</Project>
