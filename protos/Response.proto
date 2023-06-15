@@ -1,0 +1,17 @@
+syntax = "proto3";
+
+package MessageClasses;
+
+enum Result {
+  OK = 0;
+  ERROR = 1;
+}
+
+message Response {
+  Result result = 1;
+  oneof message {
+    bytes  data = 2;
+    string errorMessage = 3;
+  }
+}
+

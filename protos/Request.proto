@@ -1,0 +1,12 @@
+syntax = "proto3";
+
+package MessageClasses;
+
+enum RequestType {
+  UNKNOWN = 0;
+  GET_NUMBER = 1;
+}
+
+message Request {
+  RequestType type = 1;
+}
