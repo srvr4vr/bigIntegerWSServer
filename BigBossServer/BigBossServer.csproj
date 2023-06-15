@@ -9,13 +9,6 @@
         <UserSecretsId>6bf11f13-9e6e-4673-9952-93697fef4229</UserSecretsId>
     </PropertyGroup>
 
-
-    <ItemGroup>
-      <Content Include="..\.dockerignore">
-        <Link>.dockerignore</Link>
-      </Content>
-    </ItemGroup>
-
     <ItemGroup>
       <Protobuf Include="..\protos\Request.proto" Link="Proto\Request.proto" />
       <Protobuf Include="..\protos\Response.proto" Link="Proto\Response.proto" />

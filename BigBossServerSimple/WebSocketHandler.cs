@@ -5,9 +5,10 @@ using MessageClasses;
 
 namespace BigBossServerSimple; 
 
-public static class WebSocketHandler {
+public static class WebSocketHandler 
+{
 
-    private static IBigNumberSource _numberSource = new UniqNumberDecorator(new BigNumberSource());
+    private static readonly IBigNumberSource NumberSource = new UniqNumberDecorator(new BigNumberSource());
     
     public static async Task HandleWebSocket(WebSocket socket)
     {
@@ -34,7 +35,7 @@ public static class WebSocketHandler {
 
                 if (request.Type == RequestType.GetNumber) 
                 {
-                    var number = await _numberSource.getNumberAsync();
+                    var number = await NumberSource.GetNumberAsync();
                     response.Result = Result.Ok;
                     response.Data = ByteString.CopyFrom(number.ToByteArray());
                     
@@ -50,7 +51,8 @@ public static class WebSocketHandler {
         }
     }
 
-    private static async Task SendAsync(WebSocket socket, IMessage response) {
+    private static async Task SendAsync(WebSocket socket, IMessage response) 
+    {
         await socket.SendAsync(buffer: new ArraySegment<byte>(response.ToByteArray()),
             messageType: WebSocketMessageType.Binary,
             endOfMessage: true,

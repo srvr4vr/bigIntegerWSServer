@@ -32,7 +32,8 @@ public class MainWindowViewModel : ViewModelBase {
     public ReactiveCommand<Unit, Unit> RequestNextNumberCommand { get; }
 
 
-    public MainWindowViewModel() {
+    public MainWindowViewModel() 
+    {
         ConnectCommand = ReactiveCommand.CreateFromTask(ConnectFunc);
         RequestNextNumberCommand = ReactiveCommand.CreateFromTask(RequestNextNumberFunc);
         Service = new BigBossService();
@@ -41,15 +42,15 @@ public class MainWindowViewModel : ViewModelBase {
         Host = "localhost:5083";
         UserId = Random.Shared.Next(1, 9999).ToString();
         Messages.Add("Greetings, I'm BigBossClient");
-        Messages.Add("Another message");
     }
 
-    private async Task ConnectFunc() {
+    private async Task ConnectFunc() 
+    {
         await Service.Connect(UserId, Host);
     }
     
-    private async Task RequestNextNumberFunc() {
+    private async Task RequestNextNumberFunc() 
+    {
         await Service.RequestNextNumber();
     }
-
 }

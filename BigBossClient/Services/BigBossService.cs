@@ -14,12 +14,11 @@ public class BigBossService : IBigBossService {
     public event Action<ServiceEventData>? OnReceiveMessage;
     
     private readonly ClientWebSocket _ws = new ();
-    private string _userId;
 
-    private CancellationTokenSource _cancellationTokenSource;
+    private CancellationTokenSource? _cancellationTokenSource;
 
-    public async Task Connect(string userId, string host) {
-        _userId = userId;
+    public async Task Connect(string userId, string host) 
+    {
         try {
             await _ws.ConnectAsync(new Uri($"ws://{host}/ws?userId={userId}"), CancellationToken.None);
 
@@ -39,10 +38,12 @@ public class BigBossService : IBigBossService {
         var webSocketPayload = new List<byte>(1024 * 4);
         var tempMessage = new byte[1024 * 4]; 
 
-        while (_ws.State == WebSocketState.Open) {
+        while (_ws.State == WebSocketState.Open) 
+        {
             try {
                 webSocketPayload.Clear();
                 WebSocketReceiveResult? result;
+                
                 do
                 {
                     result = await _ws.ReceiveAsync(tempMessage, CancellationToken.None);
@@ -52,12 +53,14 @@ public class BigBossService : IBigBossService {
                
                 ServiceEventData eventData;
 
-                if (result.MessageType == WebSocketMessageType.Close) {
+                if (result.MessageType == WebSocketMessageType.Close)
+                {
                     await _ws.CloseAsync(WebSocketCloseStatus.NormalClosure, null, cancellationToken);
 
                     eventData = ServiceEventData.CreateError(result.CloseStatusDescription ?? "Connection close");
                 }
-                else {
+                else 
+                {
                     var response = Response.Parser.ParseFrom(webSocketPayload.ToArray());
 
                     eventData = response.Result == Result.Error
@@ -67,15 +70,19 @@ public class BigBossService : IBigBossService {
 
                 OnReceiveMessage?.Invoke(eventData);
             }
-            catch (Exception e) {
+            catch (Exception e) 
+            {
                 OnReceiveMessage?.Invoke(ServiceEventData.CreateError(e.Message));
             }
         }
     }
 
-    public async Task RequestNextNumber() {
-        if (_ws.State == WebSocketState.Open) {
-            var request = new Request() {
+    public async Task RequestNextNumber() 
+    {
+        if (_ws.State == WebSocketState.Open) 
+        {
+            var request = new Request
+            {
                 Type = RequestType.GetNumber
             };
 
@@ -84,14 +91,18 @@ public class BigBossService : IBigBossService {
                 true,
                 _cancellationTokenSource.Token);
         }
-        else {
+        else 
+        {
             OnReceiveMessage?.Invoke(ServiceEventData.CreateError("Connection closed"));
         }
     }
 
-    public async Task Disconect() {
-        if (_ws.State == WebSocketState.Open) {
-            if (!_cancellationTokenSource.IsCancellationRequested) {
+    public async Task Disconnect() 
+    {
+        if (_ws.State == WebSocketState.Open) 
+        {
+            if (!_cancellationTokenSource.IsCancellationRequested) 
+            {
                 _cancellationTokenSource.Cancel();
             }
             

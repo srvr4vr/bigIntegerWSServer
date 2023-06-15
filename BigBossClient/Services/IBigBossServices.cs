@@ -8,5 +8,5 @@ public interface IBigBossService {
     event Action<ServiceEventData> OnReceiveMessage; 
     Task Connect(string userId, string host);
     Task RequestNextNumber();
-    Task Disconect();
+    Task Disconnect();
 }

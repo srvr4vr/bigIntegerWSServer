@@ -16,12 +16,13 @@ public class UniqNumberDecorator: IBigNumberSource
         _source = source;
     }
 
-    public async Task<BigInteger> getNumberAsync() {
+    public async Task<BigInteger> GetNumberAsync() 
+    {
         BigInteger result;
         
         do 
         {
-            result = await _source.getNumberAsync();
+            result = await _source.GetNumberAsync();
         }
         while (_cache.TryGetValue(result, out _));
 

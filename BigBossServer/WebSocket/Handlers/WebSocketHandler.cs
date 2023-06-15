@@ -11,17 +11,20 @@ namespace BigBossServer.WebSocket.Handlers
         private readonly WebSocketConnectionManager _webSocketConnectionManager;
         private readonly IBigNumberSource _source;
 
-        private static Response _userAlreadyConnectedErrorMessage = new Response {
+        private static Response _userAlreadyConnectedErrorMessage = new Response 
+        {
             Result = Result.Error,
             ErrorMessage = "User already online"
         };
 
-        public WebSocketHandler(WebSocketConnectionManager webSocketConnectionManager, IBigNumberSource source) {
+        public WebSocketHandler(WebSocketConnectionManager webSocketConnectionManager, IBigNumberSource source) 
+        {
             _webSocketConnectionManager = webSocketConnectionManager;
             _source = source;
         }
 
-        public async Task<bool> OnConnected(System.Net.WebSockets.WebSocket socket, HttpContext context) {
+        public async Task<bool> OnConnected(System.Net.WebSockets.WebSocket socket, HttpContext context) 
+        {
             if (_webSocketConnectionManager.GetAll().TryGetValue(context.GetUserId(), out _)) {
                 await SendMessageAsync(socket, _userAlreadyConnectedErrorMessage);
                 await socket.CloseAsync(WebSocketCloseStatus.NormalClosure,
@@ -53,7 +56,7 @@ namespace BigBossServer.WebSocket.Handlers
                 
                 if (request.Type == RequestType.GetNumber) 
                 {
-                    var number = await _source.getNumberAsync();
+                    var number = await _source.GetNumberAsync();
                     response.Result = Result.Ok;
                     response.Data = ByteString.CopyFrom(number.ToByteArray());
                     

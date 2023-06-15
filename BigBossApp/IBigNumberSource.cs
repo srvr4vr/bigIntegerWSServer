@@ -2,6 +2,7 @@ using System.Numerics;
 
 namespace BigBossApp;
 
-public interface IBigNumberSource {
-    Task<BigInteger> getNumberAsync();
+public interface IBigNumberSource 
+{
+    Task<BigInteger> GetNumberAsync();
 }
