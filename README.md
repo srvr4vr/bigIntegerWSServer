@@ -18,7 +18,7 @@
 
 `dotnet run --project '.\BigBossServerSimple'`
 
-## BigBossServerSimple
+## BigBossServer
 Оверинжинеринговая чудище собранная из кусков моего старенького пет-проекта.
 
 `dotnet run --project '.\BigBossServer'`
